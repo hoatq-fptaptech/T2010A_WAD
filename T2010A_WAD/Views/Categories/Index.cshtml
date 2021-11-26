@@ -1,14 +1,16 @@
-﻿
+﻿@model List<T2010A_WAD.Models.Category>
 @{
     ViewBag.Title = "Categories";
-   // Layout = "~/Views/Shared/_Layout.cshtml";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+    var count = 0;
+  
 }
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Categories</h3>
-
+                <h3 class="card-title">@ViewData["Page-Title"]</h3>
+                <h4>@ViewBag.PageTitle: @count</h4>
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
                         <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -34,34 +36,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach(var cat in Model)
+                        {
                         <tr>
-                            <td>183</td>
-                            <td>John Doe</td>
+                            <td>@cat.Id</td>
+                            <td>@cat.CategoryName</td>
                             <td>11-7-2014</td>
                             <td><span class="tag tag-success">Approved</span></td>
                             <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
                         </tr>
-                        <tr>
-                            <td>219</td>
-                            <td>Alexander Pierce</td>
-                            <td>11-7-2014</td>
-                            <td><span class="tag tag-warning">Pending</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
-                        <tr>
-                            <td>657</td>
-                            <td>Bob Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="tag tag-primary">Approved</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
-                        <tr>
-                            <td>175</td>
-                            <td>Mike Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="tag tag-danger">Denied</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
+                        }
+                        
+
+                        
                     </tbody>
                 </table>
             </div>
