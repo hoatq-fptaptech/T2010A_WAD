@@ -9,11 +9,11 @@
         <!-- general form elements -->
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Create Category</h3>
+                <h3 class="card-title">Edit Category</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            @using (Html.BeginForm("Create", "Categories", FormMethod.Post))
+            @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken() // cho 1 token vao form
                 @Html.ValidationSummary(true)// xac dinh se validate form data
