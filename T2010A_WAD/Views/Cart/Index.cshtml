@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+    var cart = Session["Cart"] != null ? (T2010A_WAD.Models.Cart)Session["Cart"] : new T2010A_WAD.Models.Cart();
+}
+
+<h2>Cart</h2>
+@if (cart.Items.Count > 0) {
+<table class="table">
+    <tr>
+        <th>
+            Product Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Price
+        </th>
+        <th>Qty</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in cart.Items)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qty)
+            </td>
+            <td>
+            </td>
+        </tr>
+    }
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Total</td>
+        <td>@cart.GrandTotal</td>
+    </tr>
+</table>
+}
+else { 
+    <p>Không có sản phẩm nào trong giỏ hàng</p>
+}
+
