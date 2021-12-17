@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using T2010A_WAD.Models;
+using System.IO;
 
 namespace T2010A_WAD.Controllers
 {
@@ -29,10 +30,26 @@ namespace T2010A_WAD.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Category category)
+        public ActionResult Create([Bind(Include = "Id,CategoryName,CategoryImage")]Category category,HttpPostedFileBase CategoryImage)
         {
             if (ModelState.IsValid)
             {
+                string catImg = "~/Uploads/default.jpg"; // gia tri mac dinh khi ko chon anh 
+                try
+                {
+                    if(CategoryImage != null)
+                    {
+                        // up image len va set gia tri lai cho catImg
+                        string fileName = Path.GetFileName(CategoryImage.FileName);
+                        string path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
+                        CategoryImage.SaveAs(path);
+                        catImg = "~/Uploads/" + fileName;
+                    }
+                    
+                }catch(Exception e) { 
+                }finally{
+                    category.CategoryImage = catImg;
+                }
                 // khi dữ liệu gửi lên thỏa mãn yêu cầu (yêu cầu theo Model) -> lưu vào DB
                 context.Categories.Add(category);
                 context.SaveChanges();
@@ -59,10 +76,27 @@ namespace T2010A_WAD.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Category category)
+        public ActionResult Edit([Bind(Include = "Id,CategoryName,CategoryImage")] Category category,HttpPostedFileBase Image)
         {
             if (ModelState.IsValid)
             {
+                
+               // string catImg = category.CategoryImage; // gia tri mac dinh khi ko chon anh 
+                try
+                {
+                    if (Image != null)
+                    {
+                        // up image len va set gia tri lai cho catImg
+                        string fileName = Path.GetFileName(Image.FileName);
+                        string path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
+                        Image.SaveAs(path);
+                        category.CategoryImage = "~/Uploads/" + fileName;
+                    }
+                }
+                catch (Exception e)
+                {
+                }
+                
                 context.Entry(category).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
                 return RedirectToAction("Index");

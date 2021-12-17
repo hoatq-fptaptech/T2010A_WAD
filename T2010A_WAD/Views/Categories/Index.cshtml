@@ -41,7 +41,7 @@
                         <tr>
                             <td>@cat.Id</td>
                             <td>@cat.CategoryName</td>
-                            <td>@cat.CategoryImage</td>
+                            <td><img src="@Url.Content(cat.CategoryImage)" width="50"/></td>
                             <td>
                                 <a href="~/Categories/Edit/@cat.Id">Edit</a>
                                 <a onclick="return confirm('Are you sure?');" href="~/Categories/Delete/@cat.Id" class="text-danger">Delete</a>

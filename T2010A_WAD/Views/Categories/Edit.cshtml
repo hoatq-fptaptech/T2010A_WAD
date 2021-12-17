@@ -13,7 +13,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("Edit","Categories",FormMethod.Post,new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken() // cho 1 token vao form
                 @Html.ValidationSummary(true)// xac dinh se validate form data
@@ -25,8 +25,10 @@
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(Model => Model.CategoryImage)
-                        @Html.EditorFor(Model => Model.CategoryImage, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter category image" } })
-                        @Html.ValidationMessageFor(Model => Model.CategoryImage, "", new { @class = "text-danger" })
+                        <img src="@Url.Content(Model.CategoryImage)" width="50"/>
+                        @Html.EditorFor(Model => Model.CategoryImage, new { htmlAttributes = new {@type="hidden", @class = "form-control", @placeholder = "Enter category image" } })
+                        <input type="file" class="form-control" name="Image" placeholder="Enter category image"/>
+                       
                     </div>
                 </div>
                 <!-- /.card-body -->
